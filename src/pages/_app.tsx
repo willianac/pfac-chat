@@ -3,6 +3,10 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 
+import { Outfit } from "next/font/google"
+
+const outfit = Outfit({subsets: ["latin"]})
+
 const theme = extendTheme({
 	colors: {
 		primary: {
@@ -22,8 +26,10 @@ const theme = extendTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<ChakraProvider theme={theme}>
-			<Component {...pageProps} />
-		</ChakraProvider>
+		<main className={outfit.className}>
+			<ChakraProvider theme={theme}>
+				<Component {...pageProps} />
+			</ChakraProvider>
+		</main>
 	)
 }
