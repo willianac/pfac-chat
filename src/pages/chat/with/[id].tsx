@@ -1,5 +1,6 @@
 import ChatLayout from "@/components/chat-layout";
 import { User } from "@/models/user";
+import { useUserStore } from "@/store/useUserStore";
 import { Button, Input } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -18,9 +19,10 @@ function Chat({ data }: { data: User[] }) {
 	const router = useRouter()
 	const receiverID = router.query.id
 
-	useEffect(() => {
-		const ws = io("ws://localhost:5000")
+	const { user } = useUserStore()
 
+	useEffect(() => {
+		const ws = io("ws://localhost:5000", {auth: { userid: user.id }})
 		setWebSocket(ws)
 
 		ws.on("message", (e: any) => {
@@ -31,7 +33,7 @@ function Chat({ data }: { data: User[] }) {
 			ws.disconnect()
 		}
 
-	}, [receiverID])
+	}, [receiverID, user.id])
 
 	const sendMessage = () => {
 
