@@ -1,4 +1,5 @@
 import ChatLayout from "@/components/chat-layout";
+import ChatMessage from "@/components/chat-message";
 import { Message } from "@/models/message";
 import { User } from "@/models/user";
 import { useUserStore } from "@/store/useUserStore";
@@ -10,15 +11,12 @@ import { io } from "socket.io-client"
 
 export async function getServerSideProps() {
   const chatsResponse = await axios.get<User[]>("http://localhost:5000/users");
-	const previousMessagesResponse = await axios.get<Message[]>("http://localhost:5000/messages")
-
   const chats = chatsResponse.data;
-	const previousMessages = previousMessagesResponse.data
-  return { props: { chats, previousMessages } };
+  return { props: { chats } };
 }
 
-function Chat({ chats, previousMessages }: { chats: User[], previousMessages: Message[] }) {
-	const [messagesState, setMessagesState] = useState(previousMessages)
+function Chat({ chats }: { chats: User[] }) {
+	const [messagesState, setMessagesState] = useState<Message[]>([])
 	const [websocket, setWebSocket] = useState<any>();
 	const [message, setMessage] = useState("")
 	const router = useRouter()
@@ -29,12 +27,11 @@ function Chat({ chats, previousMessages }: { chats: User[], previousMessages: Me
 	useEffect(() => {
 		async function getChatMessages() {
 			const res = await axios.get<Message[]>(`http://localhost:5000/messages?senderId=${user.id}&receiverId=${receiverID}`)
-			setMessagesState([...res.data])
+			setMessagesState(res.data)
 		}
 		getChatMessages()
 
 	}, [receiverID, user.id])
-
 
 	useEffect(() => {
 		const ws = io("ws://localhost:5000", {auth: { userid: user.id }})
@@ -66,14 +63,13 @@ function Chat({ chats, previousMessages }: { chats: User[], previousMessages: Me
 	const sendMessage = () => {
 		websocket.emit("message", {message, receiverId: receiverID})
 	}
-
 	return (
 		<ChatLayout userList={chats}>
-			<div className="flex flex-col h-full">
-				<div className="h-[94%]">
+			<div className="flex flex-col h-[35.6rem]">
+				<div className="h-[94%] overflow-auto">
 					{messagesState.map(mes => {
-						console.log(mes)
-						return <h1 key={mes.id} className="text-white">{mes.text}</h1>
+						console.log(mes.sender)
+						return <ChatMessage key={mes.id} sender={mes.sender.name} text={mes.text}/>
 					})}
 				</div>
 				<div className="flex-1 flex gap-2">
