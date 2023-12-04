@@ -43,7 +43,7 @@ function Chat({ chats }: { chats: User[] }) {
 			router.push("/auth/signin")
 		}
 		
-		const ws = io("ws://localhost:5000", {auth: { userid: user.id }})
+		const ws = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL as string, {auth: { userid: user.id }})
 		setWebSocket(ws)
 
 	}, [receiverID])
