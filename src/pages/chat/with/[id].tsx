@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client"
 
 export async function getServerSideProps() {
-  const chatsResponse = await axios.get<User[]>("http://localhost:5000/users");
+  const chatsResponse = await axios.get<User[]>(process.env.NEXT_PUBLIC_API_URL + "/users");
   const chats = chatsResponse.data;
   return { props: { chats } };
 }
@@ -26,7 +26,7 @@ function Chat({ chats }: { chats: User[] }) {
 
 	useEffect(() => {
 		async function getChatMessages() {
-			const res = await axios.get<Message[]>(`http://localhost:5000/messages?senderId=${user.id}&receiverId=${receiverID}`)
+			const res = await axios.get<Message[]>(`${process.env.NEXT_PUBLIC_API_URL}/messages?senderId=${user.id}&receiverId=${receiverID}`)
 			const sortedMessages = res.data.sort((a, b) => {
 				const dateA = new Date(a.createdAt).getTime()
 				const dateB = new Date(b.createdAt).getTime()

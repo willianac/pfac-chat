@@ -30,7 +30,7 @@ function AppHeader() {
 		data.append("image", e.target.files![0])
 		data.append("userid", user.id)
 
-		const res = await axios.post("http://localhost:5000/user/profile", data)
+		const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/user/profile", data)
 		updatedProfilePic(res.data.profile_url)
 	}
 

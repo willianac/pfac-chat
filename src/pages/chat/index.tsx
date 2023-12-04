@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export async function getServerSideProps() {
-  const res = await axios.get<User[]>("http://localhost:5000/users");
+  const res = await axios.get<User[]>(process.env.NEXT_PUBLIC_API_URL + "/users");
   const data = res.data;
   return { props: { data } };
 }
