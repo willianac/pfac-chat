@@ -36,8 +36,6 @@ function Chat({ chats }: { chats: User[] }) {
 	useEffect(() => {
 		if(!user.id) {
 			router.push("/auth/signin")
-		} else {
-			router.push("/chat")
 		}
 		
 		const ws = io("ws://localhost:5000", {auth: { userid: user.id }})
@@ -74,8 +72,14 @@ function Chat({ chats }: { chats: User[] }) {
 			<div className="flex flex-col h-[35.6rem]">
 				<div className="h-[94%] overflow-auto">
 					{messagesState.map(mes => {
-						console.log(mes.sender)
-						return <ChatMessage key={mes.id} sender={mes.sender.name} text={mes.text}/>
+						return (
+							<ChatMessage 
+								key={mes.id} 
+								sender={mes.sender.name} 
+								text={mes.text} 
+								senderPicUrl={mes.sender.profile_url}
+							/>
+						)
 					})}
 				</div>
 				<div className="flex-1 flex gap-2">

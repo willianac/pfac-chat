@@ -3,11 +3,13 @@ export type Message = {
 	text: string
 	sender_id: string
 	sender: {
-		name: string
+		name: string,
+		profile_url: string
 	}
 	receiver_id: string,
 	receiver: {
-		name: string
+		name: string,
+		profile_url: string
 	}
 	createdAt: Date
 }
