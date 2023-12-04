@@ -34,6 +34,12 @@ function Chat({ chats }: { chats: User[] }) {
 	}, [receiverID, user.id])
 
 	useEffect(() => {
+		if(!user.id) {
+			router.push("/auth/signin")
+		} else {
+			router.push("/chat")
+		}
+		
 		const ws = io("ws://localhost:5000", {auth: { userid: user.id }})
 		setWebSocket(ws)
 
