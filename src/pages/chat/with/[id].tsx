@@ -27,7 +27,12 @@ function Chat({ chats }: { chats: User[] }) {
 	useEffect(() => {
 		async function getChatMessages() {
 			const res = await axios.get<Message[]>(`http://localhost:5000/messages?senderId=${user.id}&receiverId=${receiverID}`)
-			setMessagesState(res.data)
+			const sortedMessages = res.data.sort((a, b) => {
+				const dateA = new Date(a.createdAt).getTime()
+				const dateB = new Date(b.createdAt).getTime()
+				return dateA - dateB;
+			})
+			setMessagesState(sortedMessages)
 		}
 		getChatMessages()
 
@@ -72,6 +77,7 @@ function Chat({ chats }: { chats: User[] }) {
 			<div className="flex flex-col h-[35.6rem]">
 				<div className="h-[94%] overflow-auto">
 					{messagesState.map(mes => {
+						console.log(typeof mes.createdAt)
 						return (
 							<ChatMessage 
 								key={mes.id} 
