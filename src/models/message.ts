@@ -11,5 +11,5 @@ export type Message = {
 		name: string,
 		profile_url: string
 	}
-	createdAt: Date
+	createdAt: string
 }

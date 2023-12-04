@@ -84,6 +84,7 @@ function Chat({ chats }: { chats: User[] }) {
 								sender={mes.sender.name} 
 								text={mes.text} 
 								senderPicUrl={mes.sender.profile_url}
+								time={mes.createdAt}
 							/>
 						)
 					})}
