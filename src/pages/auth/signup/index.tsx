@@ -53,7 +53,7 @@ function SignUp() {
 
 				{showError && <ErrorBox message={errorMessage}/>}
 
-				<Button type="submit" colorScheme='primary' className='w-full mb-4' size="lg">Entrar</Button>
+				<Button type="submit" colorScheme='primary' className='w-full mb-4' size="lg">Cadastrar</Button>
 			</form>
 			<span className='text-white font-bold'>
 				Já tem uma conta?  

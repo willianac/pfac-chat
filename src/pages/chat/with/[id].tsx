@@ -71,13 +71,13 @@ function Chat({ chats }: { chats: User[] }) {
 
 	const sendMessage = () => {
 		websocket.emit("message", {message, receiverId: receiverID})
+		setMessage("")
 	}
 	return (
 		<ChatLayout userList={chats}>
 			<div className="flex flex-col h-[35.6rem]">
 				<div className="h-[94%] overflow-auto">
 					{messagesState.map(mes => {
-						console.log(typeof mes.createdAt)
 						return (
 							<ChatMessage 
 								key={mes.id} 
@@ -89,7 +89,13 @@ function Chat({ chats }: { chats: User[] }) {
 					})}
 				</div>
 				<div className="flex-1 flex gap-2">
-					<Input onChange={(e) => setMessage(e.target.value)} type="text" placeholder="Digite sua mensagem" size="lg" color="white"/>
+					<Input 
+						onChange={(e) => setMessage(e.target.value)} 
+						type="text" 
+						placeholder="Digite sua mensagem" 
+						size="lg" color="white" 
+						value={message}
+					/>
 					<Button onClick={sendMessage} colorScheme="primary" size="lg">Enviar</Button>
 				</div>
 			</div>
