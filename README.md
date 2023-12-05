@@ -25,4 +25,4 @@
 
 ✨ **Socket.io** foi usado para fazer a conexão websocket.
 
-Use o app aqui: https://pfac-webchat.netlify.app/
+Use o app aqui: https://pfac-chat.vercel.app/
