@@ -1,6 +1,7 @@
 export type Message = {
 	id: string
-	text: string
+	text?: string
+	image_url?: string
 	sender_id: string
 	sender: {
 		name: string,

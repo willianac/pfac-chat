@@ -4,12 +4,13 @@ import { useUserStore } from "@/store/useUserStore"
 
 type ChatMessageProps = {
 	sender: string
-	text: string,
+	text?: string,
+	imageUrl?: string
 	senderPicUrl: string
 	time: string
 }
 
-function ChatMessage({ text, sender, senderPicUrl, time }: ChatMessageProps) {
+function ChatMessage({ text, sender, senderPicUrl, time, imageUrl }: ChatMessageProps) {
 
 	const { user } = useUserStore()
 	const senderPic = senderPicUrl ? senderPicUrl : default_profile_img
@@ -29,10 +30,14 @@ function ChatMessage({ text, sender, senderPicUrl, time }: ChatMessageProps) {
 					<span 
 						className="text-xs text-zinc-600"
 					>
-						`{messageTime.getDate()}/{messageTime.getMonth() + 1}/{messageTime.getFullYear()}`
+						{messageTime.getDate()}/{messageTime.getMonth() + 1}/{messageTime.getFullYear()}
 					</span>
 				</div>
-				<p className="text-light">{text}</p>
+				{
+					text
+					? <p className="text-light">{text}</p>
+					: <Image src={imageUrl!} width={96} height={96} alt="teste" className="mt-2"/>
+				}
 			</div>
 		</div>
 	)
