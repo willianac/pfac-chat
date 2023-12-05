@@ -35,7 +35,7 @@ function AppHeader() {
 	}
 
 	return (
-		<header className="h-16 bg-black w-full flex items-center justify-between px-80">
+		<header className="h-16 bg-black w-full flex items-center justify-between px-6 md:px-80">
 			{
 				user.id ?
 					<>
