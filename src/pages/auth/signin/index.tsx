@@ -36,9 +36,9 @@ function SignIn() {
 
 	return (
 		<div className="flex flex-col items-center">
-			<h1 className='text-light text-7xl font-bold mt-32'>Play For a Cause - Chat</h1>
-			<h3 className='text-light text-3xl font-semibold'>Entre na sua conta</h3>
-			<form onSubmit={handleSubmit} className='mt-20 md:w-1/4'>
+			<h1 className='text-light text-3xl md:text-7xl font-bold mt-32'>Play For a Cause - Chat</h1>
+			<h3 className='text-light text-2xl md:text-3xl font-semibold'>Entre na sua conta</h3>
+			<form onSubmit={handleSubmit} className='mt-20 w-3/4 md:w-1/4'>
 				<FormControl className='mb-6'>
 					<Input type='email' onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" colorScheme='primary' bg="#fffaf2" size="lg"/>
 				</FormControl>
