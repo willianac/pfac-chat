@@ -72,6 +72,9 @@ function Chat({ chats }: { chats: User[] }) {
 
 
 	const sendMessage = () => {
+		if(!message) {
+			return
+		}
 		websocket.emit("message", {message, receiverId: receiverID})
 		setMessage("")
 	}
@@ -86,7 +89,6 @@ function Chat({ chats }: { chats: User[] }) {
 		const data = new FormData()
 		data.append("image", event.target.files![0])
 		data.append("receiverId", receiverID as string)
-		console.log(data.get("receiverId"))
 		websocket.emit("message", {image: event.target.files![0], receiverId: receiverID})
 	}
 
